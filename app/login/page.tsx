@@ -69,7 +69,7 @@ export default function LoginPage() {
                 type="text"
                 id="username"
                 name="username"
-                placeholder="Enter Username"
+                placeholder="Username"
                 className="w-full px-4 py-2 bg-transparent border border-white/30 rounded-md placeholder-white text-white focus:outline-none focus:ring-2 focus:ring-white"
               />
             </div>
@@ -82,7 +82,7 @@ export default function LoginPage() {
                 type="password"
                 id="password"
                 name="password"
-                placeholder="Enter Password"
+                placeholder="Password"
                 className="w-full px-4 py-2 bg-transparent border border-white/30 rounded-md placeholder-white text-white focus:outline-none focus:ring-2 focus:ring-white"
               />
             </div>
