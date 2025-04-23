@@ -883,21 +883,30 @@ export namespace Prisma {
 
   export type UserMinAggregateOutputType = {
     id: number | null
-    username: string | null
+    firstName: string | null
+    lastName: string | null
+    employeeNumber: string | null
+    email: string | null
     password: string | null
     createdAt: Date | null
   }
 
   export type UserMaxAggregateOutputType = {
     id: number | null
-    username: string | null
+    firstName: string | null
+    lastName: string | null
+    employeeNumber: string | null
+    email: string | null
     password: string | null
     createdAt: Date | null
   }
 
   export type UserCountAggregateOutputType = {
     id: number
-    username: number
+    firstName: number
+    lastName: number
+    employeeNumber: number
+    email: number
     password: number
     createdAt: number
     _all: number
@@ -914,21 +923,30 @@ export namespace Prisma {
 
   export type UserMinAggregateInputType = {
     id?: true
-    username?: true
+    firstName?: true
+    lastName?: true
+    employeeNumber?: true
+    email?: true
     password?: true
     createdAt?: true
   }
 
   export type UserMaxAggregateInputType = {
     id?: true
-    username?: true
+    firstName?: true
+    lastName?: true
+    employeeNumber?: true
+    email?: true
     password?: true
     createdAt?: true
   }
 
   export type UserCountAggregateInputType = {
     id?: true
-    username?: true
+    firstName?: true
+    lastName?: true
+    employeeNumber?: true
+    email?: true
     password?: true
     createdAt?: true
     _all?: true
@@ -1022,7 +1040,10 @@ export namespace Prisma {
 
   export type UserGroupByOutputType = {
     id: number
-    username: string
+    firstName: string
+    lastName: string
+    employeeNumber: string
+    email: string
     password: string
     createdAt: Date
     _count: UserCountAggregateOutputType | null
@@ -1048,7 +1069,10 @@ export namespace Prisma {
 
   export type UserSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    username?: boolean
+    firstName?: boolean
+    lastName?: boolean
+    employeeNumber?: boolean
+    email?: boolean
     password?: boolean
     createdAt?: boolean
   }, ExtArgs["result"]["user"]>
@@ -1057,19 +1081,25 @@ export namespace Prisma {
 
   export type UserSelectScalar = {
     id?: boolean
-    username?: boolean
+    firstName?: boolean
+    lastName?: boolean
+    employeeNumber?: boolean
+    email?: boolean
     password?: boolean
     createdAt?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "username" | "password" | "createdAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "firstName" | "lastName" | "employeeNumber" | "email" | "password" | "createdAt", ExtArgs["result"]["user"]>
 
   export type $UserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "User"
     objects: {}
     scalars: $Extensions.GetPayloadResult<{
       id: number
-      username: string
+      firstName: string
+      lastName: string
+      employeeNumber: string
+      email: string
       password: string
       createdAt: Date
     }, ExtArgs["result"]["user"]>
@@ -1442,7 +1472,10 @@ export namespace Prisma {
    */
   interface UserFieldRefs {
     readonly id: FieldRef<"User", 'Int'>
-    readonly username: FieldRef<"User", 'String'>
+    readonly firstName: FieldRef<"User", 'String'>
+    readonly lastName: FieldRef<"User", 'String'>
+    readonly employeeNumber: FieldRef<"User", 'String'>
+    readonly email: FieldRef<"User", 'String'>
     readonly password: FieldRef<"User", 'String'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
   }
@@ -1782,7 +1815,10 @@ export namespace Prisma {
 
   export const UserScalarFieldEnum: {
     id: 'id',
-    username: 'username',
+    firstName: 'firstName',
+    lastName: 'lastName',
+    employeeNumber: 'employeeNumber',
+    email: 'email',
     password: 'password',
     createdAt: 'createdAt'
   };
@@ -1799,7 +1835,10 @@ export namespace Prisma {
 
 
   export const UserOrderByRelevanceFieldEnum: {
-    username: 'username',
+    firstName: 'firstName',
+    lastName: 'lastName',
+    employeeNumber: 'employeeNumber',
+    email: 'email',
     password: 'password'
   };
 
@@ -1847,14 +1886,20 @@ export namespace Prisma {
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
     id?: IntFilter<"User"> | number
-    username?: StringFilter<"User"> | string
+    firstName?: StringFilter<"User"> | string
+    lastName?: StringFilter<"User"> | string
+    employeeNumber?: StringFilter<"User"> | string
+    email?: StringFilter<"User"> | string
     password?: StringFilter<"User"> | string
     createdAt?: DateTimeFilter<"User"> | Date | string
   }
 
   export type UserOrderByWithRelationInput = {
     id?: SortOrder
-    username?: SortOrder
+    firstName?: SortOrder
+    lastName?: SortOrder
+    employeeNumber?: SortOrder
+    email?: SortOrder
     password?: SortOrder
     createdAt?: SortOrder
     _relevance?: UserOrderByRelevanceInput
@@ -1862,17 +1907,23 @@ export namespace Prisma {
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
     id?: number
-    username?: string
+    employeeNumber?: string
+    email?: string
     AND?: UserWhereInput | UserWhereInput[]
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
+    firstName?: StringFilter<"User"> | string
+    lastName?: StringFilter<"User"> | string
     password?: StringFilter<"User"> | string
     createdAt?: DateTimeFilter<"User"> | Date | string
-  }, "id" | "username">
+  }, "id" | "employeeNumber" | "email">
 
   export type UserOrderByWithAggregationInput = {
     id?: SortOrder
-    username?: SortOrder
+    firstName?: SortOrder
+    lastName?: SortOrder
+    employeeNumber?: SortOrder
+    email?: SortOrder
     password?: SortOrder
     createdAt?: SortOrder
     _count?: UserCountOrderByAggregateInput
@@ -1887,53 +1938,77 @@ export namespace Prisma {
     OR?: UserScalarWhereWithAggregatesInput[]
     NOT?: UserScalarWhereWithAggregatesInput | UserScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"User"> | number
-    username?: StringWithAggregatesFilter<"User"> | string
+    firstName?: StringWithAggregatesFilter<"User"> | string
+    lastName?: StringWithAggregatesFilter<"User"> | string
+    employeeNumber?: StringWithAggregatesFilter<"User"> | string
+    email?: StringWithAggregatesFilter<"User"> | string
     password?: StringWithAggregatesFilter<"User"> | string
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
   }
 
   export type UserCreateInput = {
-    username: string
+    firstName: string
+    lastName: string
+    employeeNumber: string
+    email: string
     password: string
     createdAt?: Date | string
   }
 
   export type UserUncheckedCreateInput = {
     id?: number
-    username: string
+    firstName: string
+    lastName: string
+    employeeNumber: string
+    email: string
     password: string
     createdAt?: Date | string
   }
 
   export type UserUpdateInput = {
-    username?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    employeeNumber?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UserUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
-    username?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    employeeNumber?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UserCreateManyInput = {
     id?: number
-    username: string
+    firstName: string
+    lastName: string
+    employeeNumber: string
+    email: string
     password: string
     createdAt?: Date | string
   }
 
   export type UserUpdateManyMutationInput = {
-    username?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    employeeNumber?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UserUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
-    username?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    employeeNumber?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -1983,7 +2058,10 @@ export namespace Prisma {
 
   export type UserCountOrderByAggregateInput = {
     id?: SortOrder
-    username?: SortOrder
+    firstName?: SortOrder
+    lastName?: SortOrder
+    employeeNumber?: SortOrder
+    email?: SortOrder
     password?: SortOrder
     createdAt?: SortOrder
   }
@@ -1994,14 +2072,20 @@ export namespace Prisma {
 
   export type UserMaxOrderByAggregateInput = {
     id?: SortOrder
-    username?: SortOrder
+    firstName?: SortOrder
+    lastName?: SortOrder
+    employeeNumber?: SortOrder
+    email?: SortOrder
     password?: SortOrder
     createdAt?: SortOrder
   }
 
   export type UserMinOrderByAggregateInput = {
     id?: SortOrder
-    username?: SortOrder
+    firstName?: SortOrder
+    lastName?: SortOrder
+    employeeNumber?: SortOrder
+    email?: SortOrder
     password?: SortOrder
     createdAt?: SortOrder
   }

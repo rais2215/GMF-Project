@@ -1,46 +1,43 @@
+import { PrismaClient } from '@/app/generated/prisma';
 import { NextResponse } from 'next/server';
 import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
-import { serialize } from 'cookie';
 
-// Dummy user (biasanya ini diambil dari database)
-const users = [
-  {
-    id: 1,
-    username: 'admin',
-    passwordHash: await bcrypt.hash('admin123', 10), // hash passwordnya dulu
-  },
-];
+const prisma = new PrismaClient();
 
 export async function POST(req: Request) {
-  const body = await req.json();
-  const { username, password } = body;
+  try {
+    const body = await req.json();
+    const username = body.username?.trim();
+    const password = body.password;
 
-  const user = users.find(u => u.username === username);
-  if (!user) {
-    return NextResponse.json({ error: 'User not found' }, { status: 401 });
+    // Validasi input
+    if (!username || !password) {
+      return NextResponse.json({ error: 'Semua field wajib diisi' }, { status: 400 });
+    }
+
+    // Cari user berdasarkan employeeNumber
+    const user = await prisma.user.findUnique({
+      where: {
+        employeeNumber: username,
+      },
+    });
+
+    if (!user) {
+      return NextResponse.json({ error: 'Nomor Pegawai tidak ditemukan' }, { status: 404 });
+    }
+
+    // Cek password
+    const passwordMatch = await bcrypt.compare(password, user.password);
+    if (!passwordMatch) {
+      return NextResponse.json({ error: 'Password salah' }, { status: 401 });
+    }
+
+    // Bisa tambahkan logika auth/token/session di sini jika perlu
+
+    return NextResponse.json({ message: 'Login berhasil', user: { id: user.id, name: user.firstName } }, { status: 200 });
+
+  } catch (error) {
+    console.error('Login error:', error);
+    return NextResponse.json({ error: 'Terjadi kesalahan di server' }, { status: 500 });
   }
-
-  const validPassword = await bcrypt.compare(password, user.passwordHash);
-  if (!validPassword) {
-    return NextResponse.json({ error: 'Invalid password' }, { status: 401 });
-  }
-
-  // Generate JWT token
-  const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET!, {
-    expiresIn: '1d',
-  });
-
-  // Set cookie
-  const response = NextResponse.json({ message: 'Login success' });
-  response.headers.set(
-    'Set-Cookie',
-    serialize('token', token, {
-      httpOnly: true,
-      path: '/',
-      maxAge: 60 * 60 * 24, // 1 day
-    })
-  );
-
-  return response;
 }
