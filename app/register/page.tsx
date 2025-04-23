@@ -35,7 +35,7 @@ export default function RegisterPage() {
 
     if (!passwordRegex.test(password)) {
       setLoading(false);
-      toast.error('Password harus mengandung minimal satu huruf dan satu angka.');
+      toast.error('Your password must include at least one letter and one number.');
       return;
     }
 
@@ -96,9 +96,9 @@ export default function RegisterPage() {
             <h2 className="text-3xl font-bold mb-6">Register</h2>
 
             <form className="space-y-5" onSubmit={handleRegister}>
-              <InputField id="firstName" label="Nama Depan" />
-              <InputField id="lastName" label="Nama Belakang" />
-              <InputField id="employeeNumber" label="Nomor Pegawai" />
+              <InputField id="firstName" label="First Name" />
+              <InputField id="lastName" label="Last Name" />
+              <InputField id="employeeNumber" label="Employee Number" />
               <InputField id="email" label="Email" type="email" />
               
               <div>
@@ -109,14 +109,14 @@ export default function RegisterPage() {
                   type="password"
                   id="password"
                   name="password"
-                  placeholder="Password (minimal 1 huruf & 1 angka)"
+                  placeholder="Password (at least 1 letter & 1 number)"
                   value={passwordInput}
                   onChange={(e) => {
                     const val = e.target.value;
                     setPasswordInput(val);
                     const regex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]+$/;
                     if (!regex.test(val)) {
-                      setPasswordWarning('Password harus mengandung minimal satu huruf dan satu angka.');
+                      setPasswordWarning('Your password must include at least one letter and one number.');
                     } else {
                       setPasswordWarning('');
                     }
@@ -127,13 +127,13 @@ export default function RegisterPage() {
 
               <div>
                 <label htmlFor="confirmPassword" className="block text-sm mb-1 font-bold">
-                  Masukkan Kembali Password
+                  Confirm Password
                 </label>
                 <input
                   type="password"
                   id="confirmPassword"
                   name="confirmPassword"
-                  placeholder="Konfirmasi Password"
+                  placeholder="Confirm Password"
                   value={confirmPasswordInput}
                   onChange={(e) => setConfirmPasswordInput(e.target.value)}
                   className="w-full px-4 py-2 bg-transparent border border-white/30 rounded-md placeholder-white text-white focus:outline-none focus:ring-2 focus:ring-white"
