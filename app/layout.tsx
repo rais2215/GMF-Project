@@ -18,8 +18,9 @@ export const metadata: Metadata = {
   title: "GMF Reliability",
   description: "Portal Login GMF AeroAsia",
   icons: {
-    icon: "/images/logo-title.jpeg",
-    shortcut: "/images/logo-title.jpeg",
+    icon: "/images/logo.png",  
+    shortcut: "/images/logo.png",
+    apple: "/images/logo.png",
   },
   openGraph: {
     title: "GMF Reliability",
@@ -27,7 +28,7 @@ export const metadata: Metadata = {
     siteName: "GMF AeroAsia",
     images: [
       {
-        url: "/images/logo-title.jpeg",
+        url: "/images/logo.png", 
         width: 600,
         height: 315,
         alt: "GMF AeroAsia",
@@ -40,7 +41,6 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
-      <head />
       <body className="antialiased">
         {children}
         <Toaster position="top-right" reverseOrder={false} />

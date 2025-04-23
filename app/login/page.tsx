@@ -9,15 +9,17 @@ import { useRouter } from 'next/navigation';
 
 export default function LoginPage() {
   const [loading, setLoading] = useState(false);
-  const router = useRouter();
+  const [errorMessage, setErrorMessage] = useState('');
+  const router = useRouter(); // Hook to handle navigation
 
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
+    setErrorMessage(''); // Clear previous error message
 
     const formData = new FormData(e.currentTarget);
-    const employeeNumber = formData.get('employeeNumber');
-    const password = formData.get('password');
+    const employeeNumber = formData.get('employeeNumber')?.toString().trim();
+    const password = formData.get('password')?.toString().trim();
 
     if (!employeeNumber || !password) {
       toast.error('Semua field wajib diisi');
@@ -25,6 +27,7 @@ export default function LoginPage() {
       return;
     }
 
+    // Make the API call to validate login credentials
     const res = await fetch('/api/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -34,10 +37,14 @@ export default function LoginPage() {
     const data = await res.json();
     setLoading(false);
 
+    console.log('API Response:', data); // Log response from the backend
+
     if (res.ok) {
       toast.success('Login berhasil!');
-      router.push('/dashboard');
+      console.log('Navigating to homepage'); // Updated message
+      router.push('/'); // Redirect to homepage
     } else {
+      setErrorMessage(data.error || 'Login gagal');
       toast.error(data.error || 'Login gagal');
     }
   };
@@ -67,7 +74,7 @@ export default function LoginPage() {
 
         {/* Overlay + Form Container */}
         <div className="absolute inset-0 bg-black/40 flex items-center justify-end px-6 lg:px-24">
-          <div className="max-w-md w-full bg-white/10 backdrop-blur-md rounded-xl p-8 text-white shadow-lg">
+          <div className="max-w-md w-full bg-white/10 backdrop-blur-md rounded-xl p-8 text-white shadow-lg transition-all duration-500 ease-in-out transform hover:scale-105">
             <h2 className="text-3xl font-bold mb-6">Login</h2>
 
             <form className="space-y-5" onSubmit={handleLogin}>
@@ -96,6 +103,9 @@ export default function LoginPage() {
                   className="w-full px-4 py-2 bg-transparent border border-white/30 rounded-md placeholder-white text-white focus:outline-none focus:ring-2 focus:ring-white"
                 />
               </div>
+
+              {/* Show error message if login failed */}
+              {errorMessage && <p className="text-red-500 text-sm mt-2">{errorMessage}</p>}
 
               <button
                 type="submit"

@@ -7,18 +7,18 @@ const prisma = new PrismaClient();
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const username = body.username?.trim();
+    const employeeNumber = body.employeeNumber?.trim();  // Menggunakan employeeNumber di sini
     const password = body.password;
 
     // Validasi input
-    if (!username || !password) {
+    if (!employeeNumber || !password) {
       return NextResponse.json({ error: 'Semua field wajib diisi' }, { status: 400 });
     }
 
     // Cari user berdasarkan employeeNumber
     const user = await prisma.user.findUnique({
       where: {
-        employeeNumber: username,
+        employeeNumber: employeeNumber,  // Menggunakan employeeNumber di sini
       },
     });
 
